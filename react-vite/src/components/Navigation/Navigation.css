@@ -1,3 +1,125 @@
+
+/* Navigation.css */
+
+/* Navigation Bar Styling */
+ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1a1a1a; /* Dark background for nav bar */
+  padding: 10px 20px;
+  margin: 0;
+  border-bottom: 2px solid #00bfff; /* Glowing accent border */
+}
+
+li {
+  margin: 0 10px;
+}
+
+a {
+  text-decoration: none;
+  color: #f5f5f5; /* Light text color */
+  font-size: 18px;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+a:hover {
+  color: #00bfff; /* Blue glow on hover */
+  transform: scale(1.1);
+}
+
+/* Profile Button */
+button {
+  background: none;
+  border: none;
+  color: #f5f5f5;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  color: #00bfff; /* Glow effect on hover */
+  transform: scale(1.1);
+}
+
+/* Profile Dropdown */
 .profile-dropdown {
   position: absolute;
+  top: 50px;
+  right: 20px;
+  background-color: #2b2b2b;
+  border: 1px solid #444;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  z-index: 1000;
+  width: 200px;
+}
+
+.profile-dropdown li {
+  color: #f5f5f5;
+  padding: 10px;
+  font-size: 16px;
+  border-bottom: 1px solid #444;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.profile-dropdown li:hover {
+  background-color: #1a1a1a; /* Highlight effect */
+}
+
+.profile-dropdown li:last-child {
+  border-bottom: none;
+}
+
+.profile-dropdown button {
+  width: 100%;
+  padding: 8px 0;
+  background-color: #00bfff; /* Glowing blue button */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.profile-dropdown button:hover {
+  background-color: #008acd;
+  transform: scale(1.05);
+}
+
+/* OpenModalMenuItem Styling */
+.profile-dropdown li:hover,
+.profile-dropdown li button:hover {
+  background-color: #2d3748;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  ul {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  li {
+    margin: 10px 0;
+  }
+
+  a {
+    font-size: 16px;
+  }
+
+  .profile-dropdown {
+    top: 40px;
+    right: 10px;
+    width: 180px;
+  }
 }

@@ -1,0 +1,108 @@
+/* LoginForm.css */
+
+/* General Page Styling */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #0d1117; /* Dark background for the login page */
+  color: #f5f5f5; /* Light text for readability */
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+h1 {
+  font-size: 32px;
+  color: #00bfff; /* Glowing blue accent for the title */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Form Container */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1a1a1a; /* Slightly lighter tone than the page background */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Input Fields */
+label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+label > input {
+  padding: 12px;
+  margin-top: 8px;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background-color: #2b2b2b; /* Slightly lighter for inputs */
+  color: #fff;
+  font-size: 16px;
+}
+
+label > input:focus {
+  outline: none;
+  border-color: #00bfff;
+  box-shadow: 0 0 5px #00bfff;
+}
+
+/* Error Messages */
+p {
+  color: #ff4c4c; /* Error color */
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* Submit Button */
+button {
+  padding: 12px 20px;
+  background-color: #00bfff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #008acd;
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+/* Responsive Styling */
+@media (max-width: 480px) {
+  form {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  label > input {
+    font-size: 14px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+}
