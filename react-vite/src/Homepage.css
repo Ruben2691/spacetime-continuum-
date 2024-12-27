@@ -1,4 +1,92 @@
-.homepage{
-    display: flex;
-    flex-direction: row;
+/* Homepage.css */
+
+/* Main container */
+.homepage {
+  display: flex;
+  height: 100vh; /* Make the layout span the full height */
+}
+
+/* Globe section */
+.globe-container {
+  flex: 2; /* Takes up two-thirds of the screen */
+  position: relative;
+  background-color: #000; /* Optional background color for contrast */
+}
+
+/* Info panel (right side) */
+.info-panel {
+  flex: 1; /* Takes up one-third of the screen */
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto; /* Allows scrolling for long content */
+  background-color: #f4f4f4; /* Light background for better visibility */
+}
+
+/* Controls (button and inputs) */
+.get-info-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Space between inputs and button */
+  margin-bottom: 20px; /* Space below controls */
+}
+
+.get-info-controls input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.get-info-controls button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.get-info-controls button:hover {
+  background-color: #0056b3;
+}
+
+/* Articles section */
+.articles {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.article-item {
+  background: #fff;
+  padding: 15px;
+  color: #333;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.article-item:hover{
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.article-item h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+.article-item div {
+  color: #555; /* Subdued color for the snippet text */
+}
+
+.article-item a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.article-item a:hover {
+  text-decoration: underline;
 }

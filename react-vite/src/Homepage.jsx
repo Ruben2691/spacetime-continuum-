@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Globe from "react-globe.gl";
 import "./Homepage.css";
 
@@ -9,14 +8,13 @@ const wiki_url = "https://en.wikipedia.org";
 
 function Homepage() {
   const globeRef = useRef();
-  // const [dataPoint, setDataPoint] = useState({ lat: 180, lng: 360 });
   const [latCoord, setLatCoord] = useState(180);
   const [lngCoord, setLngCoord] = useState(90);
   const [articles, setArticles] = useState([]);
 
   const handleGlobeClick = (coords) => {
     const { lat, lng } = coords;
-    console.log(`Latitude: ${lat}, Longitude: ${lng} `);
+    console.log(`Latitude: ${lat}, Longitude: ${lng}`);
     setLatCoord(lat);
     setLngCoord(lng);
   };
@@ -29,7 +27,7 @@ function Homepage() {
     const search = `/geocoding/v5/mapbox.places/${newLng},${newLat}.json`;
 
     const res = await fetch(`${mapUrl}${search}?access_token=${mapboxKey}`, {
-      credentials: "omit"
+      credentials: "omit",
     });
 
     if (!res.ok) {
@@ -44,60 +42,56 @@ function Homepage() {
     const addressObj = {
       city: isUSPlace ? formatPlace[1] : formatPlace[0],
       state: isUSPlace ? formatPlace[2] : null,
-      country: isUSPlace ? formatPlace[3] : formatPlace[1]
+      country: isUSPlace ? formatPlace[3] : formatPlace[1],
     };
 
     const query = `?action=query&format=json&list=search&srsearch=${addressObj.city},${addressObj.country}%20historical%20events&origin=*`;
 
     const histRes = await fetch(`${wiki}${query}`, {
-      credentials: "omit"
+      credentials: "omit",
     });
 
     const histData = await histRes.json();
     console.log(histData);
     setArticles(histData.query.search);
-    // console.log(addressObj);
   };
 
   return (
     <div className="homepage">
+      <div className="globe-container">
         <Globe
-            classnname="globe"
-            ref={globeRef}
-            width={1000}
-            // ringsData={gData}
-            ringLat={latCoord}
-            ringLng={lngCoord}
-            // onGlobeClick={({ lat, lng }) => handleGlobeClick(lat, lng)}
-            globeImageUrl="http://s3-us-west-2.amazonaws.com/s.cdpn.io/1206469/earthmap1k.jpg"
-            onGlobeClick={(coords) => handleGlobeClick(coords)}
-            bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
-            backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
+          ref={globeRef}
+          width={1000}
+          globeImageUrl="http://s3-us-west-2.amazonaws.com/s.cdpn.io/1206469/earthmap1k.jpg"
+          onGlobeClick={(coords) => handleGlobeClick(coords)}
+          bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
+          backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
         />
-
-      <div className="get-info-button">
-        <input type="text" readOnly value={latCoord} />
-        <input type="text" readOnly value={lngCoord} />
-        <button onClick={submitForInfo}>Get Info</button>
       </div>
-
-      {articles.length > 0 && (
-        <section style={{ padding: "0 20px" }}>
-          {articles.map((art) => (
-            <div className="article-list">
-              <h2>{art.title}</h2>
-              <div dangerouslySetInnerHTML={{ __html: art.snippet }} />
-              <a
-                href={`${wiki_url}/wiki?curid=${art.pageid}`}
-                target="_blank"
-                rel="norel"
-              >
-                Read more
-              </a>
-            </div>
-          ))}
-        </section>
-      )}
+      <div className="info-panel">
+        <div className="get-info-controls">
+          <input type="text" readOnly value={latCoord} />
+          <input type="text" readOnly value={lngCoord} />
+          <button onClick={submitForInfo}>Get Info</button>
+        </div>
+        {articles.length > 0 && (
+          <div className="articles">
+            {articles.map((art) => (
+              <div key={art.pageid} className="article-item">
+                <h2>{art.title}</h2>
+                <div dangerouslySetInnerHTML={{ __html: art.snippet }} />
+                <a
+                  href={`${wiki_url}/wiki?curid=${art.pageid}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Read more
+                </a>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
