@@ -19,6 +19,10 @@ function Homepage() {
     setLngCoord(lng);
   };
 
+  const handleClear = () => {
+    setArticles([]);
+  }
+
   const submitForInfo = async () => {
     const newLat = parseFloat(latCoord.toFixed(7));
     const newLng = parseFloat(lngCoord.toFixed(7));
@@ -73,6 +77,7 @@ function Homepage() {
           <input type="text" readOnly value={latCoord} />
           <input type="text" readOnly value={lngCoord} />
           <button onClick={submitForInfo}>Get Info</button>
+          <button onClick={handleClear}>Clear Results</button>
         </div>
         {articles.length > 0 && (
           <div className="articles">

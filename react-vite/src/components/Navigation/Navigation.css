@@ -3,6 +3,12 @@
 /* Navigation.css */
 
 /* Navigation Bar Styling */
+
+body {
+  padding-top: 30px; /* Adjust to the navbar's height */
+}
+
+
 ul {
   list-style: none;
   display: flex;
