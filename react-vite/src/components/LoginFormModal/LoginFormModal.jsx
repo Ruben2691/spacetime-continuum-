@@ -28,9 +28,16 @@ function LoginFormModal() {
     }
   };
 
+   // Close modal when background is clicked
+  const handleBackgroundClick = (e) => {
+    if (e.target.classList.contains("login-form")) {
+      closeModal();
+    }
+  };
+
   return (
     <>
-      <h1>Log In</h1>
+      <div className="login-form" onClick={handleBackgroundClick}>
       <form onSubmit={handleSubmit}>
         <label>
           Email
@@ -53,7 +60,8 @@ function LoginFormModal() {
         </label>
         {errors.password && <p>{errors.password}</p>}
         <button type="submit">Log In</button>
-      </form>
+        </form>
+      </div>
     </>
   );
 }

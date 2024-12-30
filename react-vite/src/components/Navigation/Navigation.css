@@ -66,6 +66,11 @@ button:hover {
   padding: 10px;
   z-index: 1000;
   width: 200px;
+  max-height: 300px; /* Prevent dropdown from growing too tall */
+  overflow: auto; /* Add scrollbars if content exceeds max-height */
+  display: flex; /* Flexbox layout for stacking */
+  flex-direction: column; /* Stack items vertically */
+  gap: 10px; /* Add spacing between items */
 }
 
 .profile-dropdown li {
@@ -75,10 +80,11 @@ button:hover {
   border-bottom: 1px solid #444;
   cursor: pointer;
   transition: background-color 0.3s ease;
-}
-
-.profile-dropdown li:hover {
-  background-color: #1a1a1a; /* Highlight effect */
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide overflowing content */
+  text-overflow: ellipsis; /* Show "..." for truncated text */
+  list-style: none; /* Remove bullet points */
+  display: block; /* Ensure items take full width */
 }
 
 .profile-dropdown li:last-child {
@@ -86,7 +92,7 @@ button:hover {
 }
 
 .profile-dropdown button {
-  width: 100%;
+  width: 100%; /* Full-width button */
   padding: 8px 0;
   background-color: #00bfff; /* Glowing blue button */
   color: #fff;
@@ -97,16 +103,13 @@ button:hover {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
+.profile-dropdown li:hover,
 .profile-dropdown button:hover {
-  background-color: #008acd;
-  transform: scale(1.05);
+  background-color: #1a1a1a; /* Hover effect for all items */
 }
 
-/* OpenModalMenuItem Styling */
-.profile-dropdown li:hover,
-.profile-dropdown li button:hover {
-  background-color: #2d3748;
-}
+
+
 
 /* Responsive Design */
 @media (max-width: 768px) {

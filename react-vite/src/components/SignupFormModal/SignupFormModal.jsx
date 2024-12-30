@@ -38,9 +38,16 @@ function SignupFormModal() {
     }
   };
 
+   // Close modal when background is clicked
+  const handleBackgroundClick = (e) => {
+    if (e.target.classList.contains("signup-form")) {
+      closeModal();
+    }
+  };
+
   return (
     <>
-      <h1>Sign Up</h1>
+      <div className="signup-form" onClick={handleBackgroundClick}>
       {errors.server && <p>{errors.server}</p>}
       <form onSubmit={handleSubmit}>
         <label>
@@ -84,7 +91,8 @@ function SignupFormModal() {
         </label>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
         <button type="submit">Sign Up</button>
-      </form>
+        </form>
+      </div>
     </>
   );
 }
