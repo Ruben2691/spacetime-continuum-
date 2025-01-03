@@ -13,8 +13,9 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    # add a user history column that holds the links to articles people have searched for
 
-  
+
 
     @property
     def password(self):

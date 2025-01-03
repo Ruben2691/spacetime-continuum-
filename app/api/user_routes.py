@@ -49,3 +49,22 @@ def profile_deleter(id):
     db.session.delete(user)
     db.session.commit()
     return jsonify({"message": "user successfully deleted"}), 200
+
+@user_routes.route("/profiles", methods=['GET'])
+def get_users_profiles():
+    users = User.query.all()
+    all_users = [user.to_dict() for user in users]
+    if users:
+        return jsonify(all_users)
+    else:
+        return 'user error'
+
+
+@user_routes.route("/profiles/<int:id>", methods=['GET'])
+def get_single_user_profile(id):
+    users = User.query.get_or_404(id)
+    user = users.to_dict()
+    if users:
+        return jsonify(user)
+    else:
+        return 'user error'
