@@ -13,8 +13,10 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-    # add a user history column that holds the links to articles people have searched for
-    search_history = db.Column(db.String(2048), nullable=True)
+   
+    links = db.relationship(
+        "UserLink", back_populates="user", cascade="all, delete-orphan"
+    )
 
 
 

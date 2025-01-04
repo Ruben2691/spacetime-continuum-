@@ -7,6 +7,7 @@ from flask_login import LoginManager
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
+from .api.link_routes import links_routes
 
 from .seeds import seed_commands
 from .config import Config
@@ -31,6 +32,8 @@ app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 # this is the prefix for anything authentication related
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
+# this is the prefix for anything link related
+app.register_blueprint(links_routes, url_prefix="/api/links")
 
 db.init_app(app)
 Migrate(app, db)

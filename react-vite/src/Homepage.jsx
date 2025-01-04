@@ -21,7 +21,7 @@ function Homepage() {
 
   const handleClear = () => {
     setArticles([]);
-  }
+  };
 
   const submitForInfo = async () => {
     const newLat = parseFloat(latCoord.toFixed(7));
@@ -61,35 +61,28 @@ function Homepage() {
   };
 
   const saveToFavorites = async (link) => {
-  try {
-    let id = 1; // Replace with the actual logged-in user's ID
+    try {
+      // Payload with user_id and link
+      const payload = { link };
 
-    // Payload with user_id and link
-    const payload = {
-      user_id: id,
-      link,
-    };
+      const response = await fetch("/api/links/save-favorite", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
-    const response = await fetch("/api/users/save-favorite", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
+      if (!response.ok) {
+        throw new Error("Failed to save the link");
+      }
 
-    if (!response.ok) {
-      throw new Error("Failed to save the link");
+      const result = await response.text(); // Backend returns plain text response
+      console.log(result); // Logs "link saved"
+    } catch (error) {
+      console.error("Error saving favorite:", error.message);
     }
-
-    const result = await response.text(); // Backend returns plain text response
-    console.log(result); // Logs "link saved"
-  } catch (error) {
-    console.error("Error saving favorite:", error.message);
-  }
-};
-
-
+  };
 
   return (
     <div className="homepage">
@@ -123,16 +116,23 @@ function Homepage() {
                 >
                   Read more
                 </a>
-                <button className="save-btn"
+                <button
+                  className="save-btn"
                   onClick={(e) => {
-                    const link = e.target.previousSibling.href; // Get the href from the preceding anchor tag
-                    console.log("Link to save:", link);
-                    saveToFavorites(link);
+                    const linkElement = e.target
+                      .closest(".article-item")
+                      .querySelector("a");
+                    if (linkElement) {
+                      const link = linkElement.href; // Get the href
+                      console.log("Link to save:", link);
+                      saveToFavorites(link);
+                    } else {
+                      console.log("No link found");
+                    }
                   }}
                 >
-                <span>Save to Favorites</span>
+                  <span>Save to Favorites</span>
                 </button>
-
               </div>
             ))}
           </div>
