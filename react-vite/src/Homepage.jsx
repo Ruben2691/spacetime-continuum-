@@ -56,9 +56,40 @@ function Homepage() {
     });
 
     const histData = await histRes.json();
-    console.log(histData);
+    // console.log(histData);
     setArticles(histData.query.search);
   };
+
+  const saveToFavorites = async (link) => {
+  try {
+    let id = 1; // Replace with the actual logged-in user's ID
+
+    // Payload with user_id and link
+    const payload = {
+      user_id: id,
+      link,
+    };
+
+    const response = await fetch("/api/users/save-favorite", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to save the link");
+    }
+
+    const result = await response.text(); // Backend returns plain text response
+    console.log(result); // Logs "link saved"
+  } catch (error) {
+    console.error("Error saving favorite:", error.message);
+  }
+};
+
+
 
   return (
     <div className="homepage">
@@ -92,6 +123,16 @@ function Homepage() {
                 >
                   Read more
                 </a>
+                <button
+                  onClick={(e) => {
+                    const link = e.target.previousSibling.href; // Get the href from the preceding anchor tag
+                    console.log("Link to save:", link);
+                    saveToFavorites(link);
+                  }}
+>
+  Save to Favorites
+</button>
+
               </div>
             ))}
           </div>

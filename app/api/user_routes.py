@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.models import User, db
 
 
@@ -68,3 +68,19 @@ def get_single_user_profile(id):
         return jsonify(user)
     else:
         return 'user error'
+
+
+@user_routes.route("/save-favorite", methods=["POST"])
+def save_favorite():
+    link_data = request.get_json()
+    user_id = link_data.get("user_id")
+    link = link_data.get("link")
+    user_id = current_user.id
+    user = User.query.get(user_id)
+
+    if user is None:
+        return "User not found", 404  # Return a 404 error if user is not found
+
+    user.search_history = link
+    db.session.commit()
+    return "Link saved", 200  # Return a 200 OK status
