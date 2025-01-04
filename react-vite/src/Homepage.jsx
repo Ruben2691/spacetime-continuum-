@@ -123,15 +123,15 @@ function Homepage() {
                 >
                   Read more
                 </a>
-                <button
+                <button className="save-btn"
                   onClick={(e) => {
                     const link = e.target.previousSibling.href; // Get the href from the preceding anchor tag
                     console.log("Link to save:", link);
                     saveToFavorites(link);
                   }}
->
-  Save to Favorites
-</button>
+                >
+                <span>Save to Favorites</span>
+                </button>
 
               </div>
             ))}
