@@ -63,7 +63,7 @@ function Homepage() {
   const saveToFavorites = async (link) => {
     try {
       // Payload with user_id and link
-      const payload = { link };
+      const payload = link
 
       const response = await fetch("/api/links/save-favorite", {
         method: "POST",
@@ -119,13 +119,14 @@ function Homepage() {
                 <button
                   className="save-btn"
                   onClick={(e) => {
-                    const linkElement = e.target
-                      .closest(".article-item")
-                      .querySelector("a");
-                    if (linkElement) {
+                    const linkElement = e.target.closest(".article-item").querySelector("a");
+                    const titleElement = e.target.closest(".article-item").querySelector("h2");
+                    if (linkElement && titleElement) {
                       const link = linkElement.href; // Get the href
-                      console.log("Link to save:", link);
-                      saveToFavorites(link);
+                      const title = titleElement.textContent; // Get the title
+                      const payload = { link, title };
+                      console.log("Link to save:", payload);
+                      saveToFavorites(payload);
                     } else {
                       console.log("No link found");
                     }
