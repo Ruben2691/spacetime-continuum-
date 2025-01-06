@@ -11,10 +11,10 @@ function Homepage() {
   const [latCoord, setLatCoord] = useState(180);
   const [lngCoord, setLngCoord] = useState(90);
   const [articles, setArticles] = useState([]);
+  const [savedArticles, setSavedArticles] = useState({}); // Tracks save state for each article
 
   const handleGlobeClick = (coords) => {
     const { lat, lng } = coords;
-    console.log(`Latitude: ${lat}, Longitude: ${lng}`);
     setLatCoord(lat);
     setLngCoord(lng);
   };
@@ -56,14 +56,12 @@ function Homepage() {
     });
 
     const histData = await histRes.json();
-    // console.log(histData);
     setArticles(histData.query.search);
   };
 
-  const saveToFavorites = async (link) => {
+  const saveToFavorites = async (link, pageid) => {
     try {
-      // Payload with user_id and link
-      const payload = link
+      const payload = link;
 
       const response = await fetch("/api/links/save-favorite", {
         method: "POST",
@@ -77,8 +75,11 @@ function Homepage() {
         throw new Error("Failed to save the link");
       }
 
-      const result = await response.text(); // Backend returns plain text response
-      console.log(result); // Logs "link saved"
+      // Update the save state for the specific article
+      setSavedArticles((prev) => ({ ...prev, [pageid]: true }));
+
+      const result = await response.text();
+      console.log(result);
     } catch (error) {
       console.error("Error saving favorite:", error.message);
     }
@@ -116,24 +117,29 @@ function Homepage() {
                 >
                   Read more
                 </a>
-                <button
-                  className="save-btn"
-                  onClick={(e) => {
-                    const linkElement = e.target.closest(".article-item").querySelector("a");
-                    const titleElement = e.target.closest(".article-item").querySelector("h2");
-                    if (linkElement && titleElement) {
-                      const link = linkElement.href; // Get the href
-                      const title = titleElement.textContent; // Get the title
-                      const payload = { link, title };
-                      console.log("Link to save:", payload);
-                      saveToFavorites(payload);
-                    } else {
-                      console.log("No link found");
-                    }
-                  }}
-                >
-                  <span>Save to Favorites</span>
-                </button>
+                {savedArticles[art.pageid] ? (
+                  <h3>Successfully Saved!</h3>
+                ) : (
+                  <button
+                    className="save-btn"
+                    onClick={(e) => {
+                      const linkElement = e.target
+                        .closest(".article-item")
+                        .querySelector("a");
+                      const titleElement = e.target
+                        .closest(".article-item")
+                        .querySelector("h2");
+                      if (linkElement && titleElement) {
+                        const link = linkElement.href;
+                        const title = titleElement.textContent;
+                        const payload = { link, title };
+                        saveToFavorites(payload, art.pageid);
+                      }
+                    }}
+                  >
+                    <span>Save to Favorites</span>
+                  </button>
+                )}
               </div>
             ))}
           </div>
